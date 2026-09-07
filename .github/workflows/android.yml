@@ -32,9 +32,19 @@ jobs:
           echo ${{ secrets.KEYSTORE }} | base64 --decode > keystore.jks
           ./gradlew assembleRelease
           echo "filename=$(jq -r '.elements.[0].outputFile' app/build/outputs/apk/release/output-metadata.json)" >> $GITHUB_ENV
+      - name: Extract version name
+        run: |
+          VERSION=$(grep -oP 'versionName\s*=\s*"\K[^"]+' app/build.gradle.kts)
+          echo "version=$VERSION" >> $GITHUB_ENV
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v7.0.1
         with:
           name: ${{ env.filename }}
           path: app/build/outputs/apk/release/${{ env.filename }}
           archive: false
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ env.version }}-${{ github.run_number}}
+          name: Release $ {{ env.version }} (${{ github.run_number}})
+          files: app/build/outputs/apk/release/${{ env.filename }}

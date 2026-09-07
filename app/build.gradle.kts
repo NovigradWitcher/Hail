@@ -18,7 +18,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.aistra.hail"
+        applicationId = "com.aistra.hail.fork"
         minSdk = 23
         targetSdk = 36
         versionCode = 35

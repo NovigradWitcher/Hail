@@ -1,20 +1,19 @@
 name: Android CI
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - 'fastlane/**'
-      - '.github/**'
-      - '!.github/workflows/android.yml'
+  # push:
+  #   branches:
+  #     - main
+  #   paths-ignore:
+  #     - '**.md'
+  #     - 'fastlane/**'
+  #     - '.github/**'
+  #     - '!.github/workflows/android.yml'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ !startsWith(github.event.head_commit.message, '[skip ci]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1

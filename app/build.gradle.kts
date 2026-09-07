@@ -9,10 +9,6 @@ android {
         workingDir = rootDir
         commandLine = "git rev-parse --short HEAD".split(" ")
     }.standardOutput.asText.get().trim()
-    val commitSubject = providers.exec {
-        workingDir = rootDir
-        commandLine = "git log -1 --pretty=%s".split(" ")
-    }.standardOutput.asText.get().trim()
 
     namespace = "com.aistra.hail"
     compileSdk = 36
@@ -33,7 +29,6 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            if (!commitSubject.startsWith("[release]")) versionNameSuffix = "-g$commitHash"
             signingConfig = if (signingProps.exists()) {
                 val props = `java.util`.Properties().apply { load(signingProps.reader()) }
                 signingConfigs.create("release") {

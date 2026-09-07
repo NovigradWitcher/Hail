@@ -47,7 +47,7 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ env.version }}-${{ github.run_number}}
-          name: Release $ {{ env.version }} (${{ github.run_number}})
+          name: Release ${{ env.version }} (${{ github.run_number}})
           files: app/build/outputs/apk/release/${{ env.filename }}
           make-latest: true
           token: ${{ secrets.GH_TOKEN }}
